@@ -192,7 +192,7 @@ export function crearGaleriaVertical(listaDiscos) {
                               <div>
                                 <h2>Nombre: ${listaDiscos[i].nombre}</h2>
                                 <p>Año: ${listaDiscos[i].anio}</p>
-                                <h3>Precio: ${listaDiscos[i].precio}</h3>
+                                <h3>Precio: €${listaDiscos[i].precio.toFixed(2)}</h3>
                               </div>
                               <div>
                                 <button id="${listaDiscos[i].id}">🛒 Añadir al carrito</button>
