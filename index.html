@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de música</title>
+    <link rel="shortcut icon" href="/assets/logo_transparent.png" type="image/x-icon">
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=delete" />
+    
+    <script defer type="module" src="/scripts/scriptsGenerales.js"></script>
+    
+</head>
+<body>
+    <header>
+        <h1 class="hidden">TIENDA CD DE MÚSICA</h1>
+        <figure class="banner">
+            <img src="/assets/banner.png" alt="Banner rock store-cd">
+            <!--<figcaption>Banner rock store-cd</figcaption>-->
+        </figure>
+    </header>
+    <main>
+        <section  class="item-list">
+            <ul>
+                <li><a href="/index.html">CD's</a></li>
+                <li><a href="/index.html">DVD's</a></li>
+                <li><a href="/index.html">Vinilos</a></li>
+                <li><a href="/index.html">Cassetes</a></li>
+                <li><a href="/index.html">T-Shirts</a></li>
+                <li><a href="/gestionar.html" class="admin" >Gestionar</a></li>
+            </ul>
+        </section>
+        <section>
+            <div  class="container-gallery">
+                <div class="buttons">
+                    <button id="Cuadricula">Cuadricula</button>
+                    <button id="Lista">Lista</button>
+                    <span id="CantidadItems" class="cantidadItems"></span>
+                </div>
+                <div class="sort">
+                    <form action="#" id="OrdenarGaleria">
+                        <label for="Select">Ordenar por: </label>
+                        <select name="Select" >
+                            <option value="1">Antiguo a nuevo</option>
+                            <option value="2">Nuevo a antiguo</option>
+                            <option value="3">Precio menor a mayor</option>
+                            <option value="4">Precio mayor a menor</option>
+                        </select>
+                        <button type="submit">ordenar</button>
+                    </form>
+                </div>
+            </div>
+            <section class="ventana-articulos">
+                <div id="Gallery" class="gallery">
+                    
+                </div>
+                <aside class="carrito-compra">
+                    <h2>Carrito de compra</h2>
+                    <div id="TotalArticulosCarrito">
+                        <p>Artículos en el carrito:</p>
+                        <p id="sumaCarrito"></p>
+                    </div>
+                    <div id="Lista-carrito">
+                        
+                    </div>
+                    <div class="total-carrito">
+                        <p>Total: </p>
+                        <h4 id="Total"></h4>
+                    </div>
+                    <button class="btn-pagar" id="BTN-pagar">Pagar ahora</button>
+                    <button class="btn-pagar" id="BTN-vaciar-carrito">Vaciar carrito</button>
+                </aside>
+            </section>
+            <div class="paginado" id="Paginado">
+                <button id="BTN-anterior">Anterior</button>
+                <p id="Paginacion"></p>
+                <button id="BTN-siguiente">Siguiente</button>
+            </div>
+        </section>
+        <footer>
+            <div>
+                <h3>Contacta con nosotros</h3>
+                <p>Horario de atención telefónica:</p>
+                <p>L a V: 8:30 - 14:00</p>
+                <h4>600-000-000</h4>
+                <h4><a href="mailto:xxx@gmail.com">xxx@gmail.com</a></h4>
+                <p>Dirección:</p>
+                <p>Calle Av Del Mar, 25.</p>
+                <p>Castellón, España</p>
+            </div>
+            <div class="logos">
+                <h3>Síguenos en RRSS:</h3>
+                <a href="/index.html"><img src="/assets/logo-insta.png" alt="Logo instagram"></a>
+                <a href="/index.html"><img src="/assets/logo-face.png" alt="logo facebook"></a>
+                <a href="/index.html"><img src="/assets/logo-x.png" alt="logo x"></a>
+            </div>
+        </footer>
+
+    </main>
+
+</body>
+</html>
