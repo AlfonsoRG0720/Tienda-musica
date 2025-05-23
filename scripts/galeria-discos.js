@@ -1,13 +1,17 @@
 import { carrito } from "./BBDD.js";
-import { carritoPago } from "./carrito-compras.js";
-import { recuperarCarritoLS } from "./carrito-compras.js";
+import { carritoPago, recuperarCarritoLS } from "./carrito-compras.js";
 
 function agregarEscuchas(disco) {
   const id=disco.id;
   const idTexto=id.toString();
-
+  
   document.getElementById(idTexto).addEventListener("click", function () {
     let carroRecuperado=recuperarCarritoLS();
+    const productoEnCarrito=carroRecuperado.find((productId) => id===productId.id)
+    if (productoEnCarrito) {
+      return
+    }
+    console.log("estoy en linea 16")
     if (carroRecuperado != null) {
       carroRecuperado.push(disco);
       carritoPago(carroRecuperado);

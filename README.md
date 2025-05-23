@@ -9,11 +9,13 @@ Una página web responsive de una tienda de discos de música rock y retro como 
 [🔗 Ver página en vivo](https://github.com/AlfonsoRG0720/Tienda-musica.git)  
 
 ### 🎶 Vista de cuadrícula de la galería de discos
-![Captura del sitio](./assets/Captura%20de%20pantalla%201.jpg.png)
+![Captura del sitio](./assets/Captura%20de%20pantalla%201.jpg)
 
 ### 📝 Vista de sección gestionar la BBDD de los discos
-![Captura del sitio](./assets/Captura%20de%20pantalla%202.jpg.png)
+![Captura del sitio](./assets/Captura%20de%20pantalla%202.jpg)
 
+### 📱 Vista responsive pantallas pequeñas
+![Captura del sitio](./assets/Captura%20de%20pantalla%203.jpg)
 
 
 ## ✨ Características

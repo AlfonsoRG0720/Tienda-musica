@@ -1,12 +1,7 @@
-import { listaDiscos } from "./BBDD.js";
-import { carrito } from "./BBDD.js";
-import { carritoPago } from "./carrito-compras.js";
-import { vaciarCarrito } from "./galeria-discos.js";
-import { recuperarCarritoLS } from "./carrito-compras.js";
-import { recuperarBbddLS, funcionPaginacion } from "./galeria-discos.js";
-import { almacenarBbddLS } from "./galeria-discos.js";
-import { cuentaItems } from "./galeria-discos.js";
-import { ordenarLista } from "./galeria-discos.js";
+import { listaDiscos, carrito } from "./BBDD.js";
+import { carritoPago, recuperarCarritoLS } from "./carrito-compras.js";
+import { ordenarLista, cuentaItems, vaciarCarrito, recuperarBbddLS, funcionPaginacion, almacenarBbddLS } from "./galeria-discos.js";
+
 
 
 console.table(listaDiscos);
@@ -53,6 +48,7 @@ export function mainIndex() {
     //===================================ORDENAR GALERIA==============================
 
     document.getElementById("OrdenarGaleria").addEventListener("submit", (event) => {
+        alert ("estoy ordenando")
         event.preventDefault();
         console.log("esto es en el evento de ordenar")
         bbdd=recuperarBbddLS("BBDD") || listaDiscos;
