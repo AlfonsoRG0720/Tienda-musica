@@ -48,7 +48,6 @@ export function mainIndex() {
     //===================================ORDENAR GALERIA==============================
 
     document.getElementById("OrdenarGaleria").addEventListener("submit", (event) => {
-        alert ("estoy ordenando")
         event.preventDefault();
         console.log("esto es en el evento de ordenar")
         bbdd=recuperarBbddLS("BBDD") || listaDiscos;

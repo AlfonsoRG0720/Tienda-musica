@@ -18,6 +18,7 @@ export function carritoPago(carrito) {
                                               </picture>
                                               <div>
                                                 <h4>${carrito[i].nombre}</h4>
+                                                <div class="btns-cantidad"><button data-id="menosCant-${carrito[i].id}">-</button><p>${carrito[i].cantidad}</p><button data-id="masCant-${carrito[i].id}">+</button></div>
                                                 <div>
                                                     <button data-id="borrar-${carrito[i].id}"><span class="material-symbols-outlined">
                                                     delete
@@ -38,12 +39,39 @@ export function carritoPago(carrito) {
               
             })
 
+            const dataCantidadMenos=(`menosCant-${carrito[i].id}`);
+            document.querySelector(`[data-id=${dataCantidadMenos}]`).addEventListener("click", function () {
+            
+              if (carrito[i].cantidad==1) {
+                let preguntarEliminar=confirm(`Deseas eliminar del carrito el disco: ${carrito[i].nombre}?`);   //OJO!! ESTAMOS REPITIENDO CÓDIGO DE ELIMINAR DE LA FUNCIÓN DE ARRIBA!!
+
+                if (preguntarEliminar) {
+                  let carritoDespuesBorrar = eliminarDiscoCarrito(carrito,carrito[i].id);
+                  carritoPago(carritoDespuesBorrar);
+                }
+
+              } else {
+                reducirCantidad(carrito[i]);
+                carritoPago(carrito);
+              }
+
+            })
+
+            const dataCantidadMas=(`masCant-${carrito[i].id}`);
+            document.querySelector(`[data-id=${dataCantidadMas}]`).addEventListener("click", function () {
+             
+              aumentarCantidad(carrito[i]);
+              carritoPago(carrito);
+            
+            })
+
             total=total+carrito[i].precio;
 
         }
 
         const totalArticulosCarrito=document.getElementById("TotalArticulosCarrito");
         const sumaCarrito=document.getElementById("sumaCarrito");
+        let cantCarritoUnidades=0;
 
         if (carrito.length==0) {
           
@@ -51,7 +79,10 @@ export function carritoPago(carrito) {
           carritoTemporal.innerHTML="<h2 class=vacio>El carrito está vacío</h2>";
         } else {
           totalArticulosCarrito.style.display="flex";
-          sumaCarrito.innerHTML=carrito.length;
+          carrito.forEach(element => {
+            cantCarritoUnidades=cantCarritoUnidades+element.cantidad;
+          });
+          sumaCarrito.innerHTML=cantCarritoUnidades;
         }
 
         guardarCarritoLS(carrito);
@@ -63,7 +94,7 @@ export function carritoPago(carrito) {
 
 //=============================GUARDAR Y RECUPERAR CARRITO DEL LOCAL STORAGE========================
 
-function guardarCarritoLS(carrito) {
+export function guardarCarritoLS(carrito) {
   localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
@@ -80,4 +111,15 @@ function eliminarDiscoCarrito(carritoAntesBorrar,id) {
     }
   }
   return nuevoCarrito;
+}
+
+
+//=====================FUNCIONES DE BOTONES DE REDUCIR Y AUMENTAR CANTIDAD EN CARRITO=======================
+
+function reducirCantidad(carrito) {
+  carrito.cantidad--;
+}
+
+function aumentarCantidad(carrito) {
+  carrito.cantidad++;
 }

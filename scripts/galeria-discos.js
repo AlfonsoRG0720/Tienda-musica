@@ -1,5 +1,5 @@
 import { carrito } from "./BBDD.js";
-import { carritoPago, recuperarCarritoLS } from "./carrito-compras.js";
+import { carritoPago, recuperarCarritoLS, guardarCarritoLS } from "./carrito-compras.js";
 
 function agregarEscuchas(disco) {
   const id=disco.id;
@@ -8,20 +8,25 @@ function agregarEscuchas(disco) {
   document.getElementById(idTexto).addEventListener("click", function () {
     let carroRecuperado=recuperarCarritoLS();
     const productoEnCarrito=carroRecuperado.find((productId) => id===productId.id)
+    
     if (productoEnCarrito) {
+
+      for (let i = 0; i < carroRecuperado.length; i++) {  
+        if (carroRecuperado[i].id===id) {
+          carroRecuperado[i].cantidad++;
+        } 
+      }
+      guardarCarritoLS(carroRecuperado)
+      carritoPago(carroRecuperado);
       return
     }
-    console.log("estoy en linea 16")
-    if (carroRecuperado != null) {
+    if (carroRecuperado != null) { 
+
+      disco.cantidad=1;
       carroRecuperado.push(disco);
       carritoPago(carroRecuperado);
-    } else {
-      carrito.push(disco);
-      carritoPago(carrito);
-    }
-    
+    }  
   })
-
 }
 
 export function vaciarCarrito() {
