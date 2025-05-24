@@ -6,7 +6,7 @@ Una página web responsive de una tienda de discos de música rock y retro como 
 
 ## 🌐 Preview
 
-[🔗 Ver página en vivo](https://github.com/AlfonsoRG0720/Tienda-musica.git)  
+[🔗 Ver página en vivo](https://tienda-discos.netlify.app/)  
 
 ### 🎶 Vista de cuadrícula de la galería de discos
 ![Captura del sitio](./assets/Captura%20de%20pantalla%201.jpg)
