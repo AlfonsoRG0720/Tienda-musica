@@ -105,17 +105,6 @@ header{
 .ventana-articulos{
     display: block;
     position: relative;
-    overflow: visible;
-
-    aside:hover{
-        background-color: rgb(185, 185, 185);
-        max-height: 400px;
-        overflow-y: auto;
-
-        .nuevoDiscoCarrito{
-            display: flex;
-        }
-    }
 }
 
 .gallery{
@@ -123,7 +112,7 @@ header{
     padding: 2em;
     display: grid;
     grid-template-columns: repeat(var(--columnasS), 1fr);
-    gap: 3em;
+    gap: 1em;
     text-align: center;
 
     img{
@@ -131,7 +120,11 @@ header{
     }
 
     h2{
-        font-size: 1em;
+        font-size: 0.8em;
+    }
+
+    p{
+        font-size: 0.8em;
     }
 
     h3{
@@ -149,6 +142,7 @@ header{
         position: absolute;
         bottom: 0;
         left: 0;
+        font-size: 0.7em;
     }
 
     button:hover{
@@ -213,25 +207,21 @@ header{
     width: 100%;
 }
 
+
+/* ============EMPIEZA MODIFICACIÓN CARRITO============*/
+
+
 .carrito-compra{
-    border-radius: 15px 0px 0 15px;
-    width: 40%;
-    padding: 0.2em;
-    background-color: rgba(185, 185, 185, 0.801);
-    border: 1px solid var(--colorNegro);
-    position: fixed;
-    top: 100px;
-    right: 0;
-    overflow: hidden;
-    max-height: 150px;
-    transition: max-height 1s ease;
-
-    .nuevoDiscoCarrito{
-        display: none;
-    }
-
+    width: 100%;
+    margin: auto;
+    padding: 3em;
+    background-color: var(--fondoGris);
+    border-top: 1px solid var(--colorNegro);
+    border-bottom:  1px solid var(--colorNegro);
+    
     #TotalArticulosCarrito{
         display: flex;
+        margin-top: 1em;
         gap: 5px;
         padding-bottom: 10px;
     }
@@ -309,10 +299,10 @@ header{
 }
 
 .btn-pagar{
-    margin: 0.1em;
-    width: 45%;
+    margin-top: 1em;
+    width: 40%;
     height: 2em;
-    font-size: 1.0rem;
+    font-size: 0.8em;
     background-color: var(--colorAmarillo);
     border: none;
     border-radius: 10px;
@@ -343,6 +333,11 @@ footer{
     justify-content: space-between;
     display: flex;
     align-content:space-between;
+
+    a{
+        text-decoration: none;
+        color: var(--colorAmarillo);
+    }
 
     div{
         width: 49%;
@@ -407,65 +402,52 @@ footer{
     .gallery{
         grid-template-columns: repeat(var(--columnasM), 1fr);
         padding: 1em;
+        gap: 2em;
+
+        h2,
+        h3,
+        p,
+        button{
+            font-size: 1em;
+        }
     }
 
     .ventana-articulos{
         display: flex;
-
-        aside:hover{
-            background-color: var(--fondoGris);
-            max-height: max-content;
-            overflow-y: auto;
-
-        .nuevoDiscoCarrito{
-            display: flex;
-        }
-        }
     }
 
+    
     .carrito-compra{
-        position: relative;
-        top: 0;
-        background-color: var(--fondoGris);
-        transition: none;
-        max-height: max-content;
-        border: none;
-        border-left: 1px solid var(--colorNegro);
-        border-radius: 0;
+        width: 40%;
+        padding: 0.5em;
+        border: 1px solid var(--colorNegro);    
 
-        .nuevoDiscoCarrito{
-            display: flex;
+        h2{
+            font-size: 1.3em;
+        }
+
+        .btn-pagar{
+            margin: 0.5em 0.2em;
+            width: 45%;
+            height: 2em;
+            font-size: 1.0rem;
+            background-color: var(--colorAmarillo);
+            border: none;
+            border-radius: 10px;
         }
 
         .total-carrito{
-            margin: 1em 0 1em 4em;
-            font-weight: 900;
-            font-size: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        margin: 1em 0 1em 2em;
+        font-weight: 900;
+        font-size: 1.2rem;
         }
 
-        h2{
-        font-size: 1.5em;
-        margin: 0.5em;
-    }
-
-    /*==================================================================*/
-
-    .lista-discos{
-        width: 70%;
-    }
-
-    .btn-pagar{
-    margin: 0.5em 0.2em;
-    width: 45%;
-    height: 2em;
-    font-size: 1.0rem;
-    background-color: var(--colorAmarillo);
-    border: none;
-    border-radius: 10px;
-    }
+    }   
 
     footer{
-
+        
         .logos{
             margin: auto;
         }
@@ -473,7 +455,6 @@ footer{
             display: inline;
             width: 3em;
         }
-    }
     }
 }
 
@@ -521,63 +502,53 @@ footer{
     .gallery{
         grid-template-columns: repeat(var(--columnasL), 1fr);
         padding: 1em;
+        gap: 3em;
+
+        h2,
+        h3,
+        p,
+        button{
+            font-size: 1em;
+        }
     }
 
     .ventana-articulos{
         display: flex;
-
-        aside:hover{
-            background-color: var(--fondoGris);
-            max-height: max-content;
-            overflow-y: auto;
-
-        .nuevoDiscoCarrito{
-            display: flex;
-        }
-        }
+        align-items: flex-start;
+        justify-content: flex-start;
+        background-color: red;
     }
 
     .carrito-compra{
-        position: relative;
-        top: 0;
-        background-color: var(--fondoGris);
-        transition: none;
-        max-height: max-content;
-        border: none;
-        border-left: 1px solid var(--colorNegro);
-        border-radius: 0;
-
-        .total-carrito{
-            margin: 1em 0 1em 4em;
-            font-weight: 900;
-            font-size: 1.5rem;
-        }
-
-        .nuevoDiscoCarrito{
-            display: flex;
-        }
+        height: 100%;
+        align-self: flex-start;
+        width: 40%;
+        padding: 1em;
+        border: 1px solid var(--colorNegro);    
 
         h2{
-        font-size: 1.5em;
-        margin: 0.5em;
+            font-size: 1.3em;
         }
-    }
 
-    /*==================================================================*/
+        .btn-pagar{
+            margin: 0.5em 0.2em;
+            width: 45%;
+            height: 2em;
+            font-size: 1.0rem;
+            background-color: var(--colorAmarillo);
+            border: none;
+            border-radius: 10px;
+        }
 
-    .lista-discos{
-        width: 70%;
-    }
+        .total-carrito{
+        display: flex;
+        justify-content: space-between;
+        margin: 1em 0 1em 2em;
+        font-weight: 900;
+        font-size: 1.2rem;
+        }
 
-    .btn-pagar{
-    margin: 0.5em 0.2em;
-    width: 45%;
-    height: 2em;
-    font-size: 1.0rem;
-    background-color: var(--colorAmarillo);
-    border: none;
-    border-radius: 10px;
-    }
+    }   
 
     footer{
 
