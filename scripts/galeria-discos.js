@@ -29,20 +29,24 @@ function agregarEscuchas(disco) {
   })
 }
 
+//=================================Vacía el carrito======================================
 export function vaciarCarrito() {
   carrito.length = 0;
   carritoPago(carrito)
 }
 
+//=========================Indica la cantidad de items en la galería========================
 export function cuentaItems(lista) {
   const cantidadDiscos=document.getElementById("CantidadItems");
   const total=lista.length;
   cantidadDiscos.innerText=`Total de discos: ${total}`
 }
 
+
+//=====================Ordenación de la lista por precio o por año=============================
 export function ordenarLista(lista, estilo) {
 
-  console.log("esto es en la función ordenar")
+  console.log("Esto es dentro de la función ordenar")
   console.log(lista);
   console.log(estilo);
 
@@ -126,7 +130,6 @@ export function ordenarLista(lista, estilo) {
 
     case 4:
       ordenTemporal=[];
-      console.log("valor 4 y Precio mayor a menor");
       const longitudArrayTemporal4=lista.length;
       for (let j = 0; j < longitudArrayTemporal4; j++) {
         let indiceMinimo = 0;
@@ -157,13 +160,14 @@ export function ordenarLista(lista, estilo) {
 
 }
 
+//=================Con el orden modificado se crea la galería en lista o en cuadrícula=====================
+
 export function crearGaleria(listaDiscos) {
-    console.log("empieza crear")
+    console.log("Empieza crear galeria")
     document.getElementById("Gallery").innerHTML="";
     let galeria = document.getElementById("Gallery");
     
     for (let i = 0; i < listaDiscos.length; i++) {
-      console.log("entra al for")
         let nuevoDisco = document.createElement("div")
     
         nuevoDisco.innerHTML=`<picture> 
@@ -186,7 +190,6 @@ export function crearGaleria(listaDiscos) {
 }
 
 export function crearGaleriaVertical(listaDiscos) {
-
   document.getElementById("Gallery").innerHTML="";
   let galeria = document.getElementById("Gallery");
       
@@ -214,17 +217,20 @@ export function crearGaleriaVertical(listaDiscos) {
   }
 }
 
+//============================Recupera la BBDD del LocalStorage=========================
 export function recuperarBbddLS(clave) {
   let BBDDRecuperado=JSON.parse(localStorage.getItem(clave));
   console.log(BBDDRecuperado);
   return BBDDRecuperado;
 }
 
+//=========================Guarda la BBDD modificada en el LocalStorage=================
 export function almacenarBbddLS(clave, valor) {
   localStorage.setItem(clave, JSON.stringify(valor));
   console.log("Dato guardado en localStorage:", clave);
 }
 
+//=============================Función de paginación==================================
 export function funcionPaginacion(bbdd, estilo) {
   let paginaActual=1;
   const cantidadDiscosMostrar=12;

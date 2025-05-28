@@ -29,13 +29,8 @@ export function carritoPago(carrito) {
             carritoTemporal.appendChild(nuevoElementoCarrito);
             const data=(`borrar-${carrito[i].id}`);
             document.querySelector(`[data-id=${data}]`).addEventListener("click", function () {
-            
-              let preguntarEliminar=confirm(`Deseas eliminar del carrito el disco: ${carrito[i].nombre}?`);
 
-              if (preguntarEliminar) {
-                let carritoDespuesBorrar = eliminarDiscoCarrito(carrito,carrito[i].id);
-                carritoPago(carritoDespuesBorrar);
-              }
+            preguntarSiEliminar(carrito[i].nombre,carrito,carrito[i].id)
               
             })
 
@@ -43,12 +38,8 @@ export function carritoPago(carrito) {
             document.querySelector(`[data-id=${dataCantidadMenos}]`).addEventListener("click", function () {
             
               if (carrito[i].cantidad==1) {
-                let preguntarEliminar=confirm(`Deseas eliminar del carrito el disco: ${carrito[i].nombre}?`);   //OJO!! ESTAMOS REPITIENDO CÓDIGO DE ELIMINAR DE LA FUNCIÓN DE ARRIBA!!
 
-                if (preguntarEliminar) {
-                  let carritoDespuesBorrar = eliminarDiscoCarrito(carrito,carrito[i].id);
-                  carritoPago(carritoDespuesBorrar);
-                }
+                preguntarSiEliminar(carrito[i].nombre,carrito,carrito[i].id)
 
               } else {
                 reducirCantidad(carrito[i]);
@@ -88,9 +79,19 @@ export function carritoPago(carrito) {
         guardarCarritoLS(carrito);
         document.getElementById("Total").innerText="€"+total.toFixed(2);
 
-    
-        
 }
+
+//=====================Pregunta si quiere eliminar del carrito======================
+function preguntarSiEliminar(nombreDisco,carrito,carritoId) {
+
+  if (confirm(`Deseas eliminar del carrito el disco: ${nombreDisco}?`)) {
+    let carritoDespuesBorrar = eliminarDiscoCarrito(carrito,carritoId);
+    carritoPago(carritoDespuesBorrar);
+  }
+
+}
+
+
 
 //=============================GUARDAR Y RECUPERAR CARRITO DEL LOCAL STORAGE========================
 
