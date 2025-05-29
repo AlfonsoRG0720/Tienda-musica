@@ -56,7 +56,7 @@ export function carritoPago(carrito) {
             
             })
 
-            total=total+carrito[i].precio;
+            total=totalPrecioCarrito(carrito);
 
         }
 
@@ -89,6 +89,17 @@ function preguntarSiEliminar(nombreDisco,carrito,carritoId) {
     carritoPago(carritoDespuesBorrar);
   }
 
+}
+
+
+//==============================Total precio carrito============================
+function totalPrecioCarrito(carrito) {
+  let valorTotal=0;
+  console.log(carrito);
+  for (let i = 0; i < carrito.length; i++) {
+    valorTotal = valorTotal + carrito[i].cantidad * carrito[i].precio;
+  }
+  return valorTotal;
 }
 
 

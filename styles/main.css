@@ -514,9 +514,10 @@ footer{
 
     .ventana-articulos{
         display: flex;
-        align-items: flex-start;
-        justify-content: flex-start;
-        background-color: red;
+        align-items: start;
+        justify-content: start;
+        /*background-color: red;*/
+        /*border: 10px solid red;*/
     }
 
     .carrito-compra{
