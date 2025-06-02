@@ -1,5 +1,60 @@
-import { carrito } from "./BBDD.js";
-import { carritoPago, recuperarCarritoLS, guardarCarritoLS } from "./carrito-compras.js";
+import { listaDiscos, carrito } from "./BBDD.js";
+
+export function iniciarPaginaHome() {
+  
+  let estilo=true;
+
+  let bbdd=recuperarBbddLS("BBDD") || listaDiscos;
+    cuentaItems(bbdd);
+    almacenarBbddLS("BBDD", bbdd);
+    let carroRecuperado=recuperarCarritoLS() || carrito;
+    carritoPago(carroRecuperado);
+    funcionPaginacion(bbdd, estilo);
+
+    //============================CREACIÓN DE GALERIA=============================
+
+    document.getElementById("Cuadricula").addEventListener("click", function () {
+
+        document.getElementById("Gallery").classList.remove("lista-discos");
+        document.getElementById("Gallery").classList.add("gallery");
+        estilo=true;
+        console.log("este es el estilo: "+ estilo);
+        bbdd=recuperarBbddLS("BBDD") || listaDiscos;
+        funcionPaginacion(bbdd, estilo);
+    });
+
+    document.getElementById("Lista").addEventListener("click", function () {
+
+        document.getElementById("Gallery").classList.remove("gallery");
+        document.getElementById("Gallery").classList.add("lista-discos");
+        estilo=false;
+        console.log("este es el estilo: "+ estilo);
+        bbdd=recuperarBbddLS("BBDD") || listaDiscos;
+        funcionPaginacion(bbdd, estilo);
+    });
+
+    //=============================GUARDAR Y RECUPERAR CARRITO========================
+
+    document.getElementById("BTN-vaciar-carrito").addEventListener("click", vaciarCarrito);
+
+    //=============================PAGAR CARRITO========================
+
+    document.getElementById("BTN-pagar").addEventListener("click", pagarCarrito);
+
+
+    //===================================ORDENAR GALERIA==============================
+
+    document.getElementById("OrdenarGaleria").addEventListener("submit", (event) => {
+        event.preventDefault();
+        console.log("esto es en el evento de ordenar")
+        bbdd=recuperarBbddLS("BBDD") || listaDiscos;
+        console.log(bbdd);
+        console.log(estilo);
+        ordenarLista(bbdd, estilo);
+    });
+
+
+}
 
 function agregarEscuchas(disco) {
   const id=disco.id;
@@ -33,6 +88,11 @@ function agregarEscuchas(disco) {
 export function vaciarCarrito() {
   carrito.length = 0;
   carritoPago(carrito)
+}
+
+export function pagarCarrito() {
+  let total= totalPrecioCarrito( recuperarCarritoLS());
+  alert (`Carrito pagado: ${total}€`);
 }
 
 //=========================Indica la cantidad de items en la galería========================
@@ -335,4 +395,142 @@ function ordenMostrar(arraySeparado, estilo) {
       console.log("dentro del if galeria lista")
       crearGaleriaVertical(arraySeparado);
   }
+}
+
+//=======================CREACIÓN DE LISTA DE CARRITO DE COMPRAS======================
+
+function carritoPago(carrito) {
+
+        let carritoTemporal = document.getElementById("Lista-carrito");
+        let total=0;
+
+        carritoTemporal.innerHTML="";
+          
+        for (let i = 0; i < carrito.length; i++) {
+          
+            let nuevoElementoCarrito = document.createElement("div");
+
+            nuevoElementoCarrito.classList.add("nuevoDiscoCarrito")
+
+            nuevoElementoCarrito.innerHTML = `<picture>
+                                                 <img src="/assets/${carrito[i].imagen}" alt="">
+                                              </picture>
+                                              <div>
+                                                <h4>${carrito[i].nombre}</h4>
+                                                <div class="btns-cantidad"><button data-id="menosCant-${carrito[i].id}">-</button><p>${carrito[i].cantidad}</p><button data-id="masCant-${carrito[i].id}">+</button></div>
+                                                <div>
+                                                    <button data-id="borrar-${carrito[i].id}"><span class="material-symbols-outlined">
+                                                    delete
+                                                    </span></button>
+                                                    <p>€${carrito[i].precio.toFixed(2)}</p>
+                                                </div>
+                                              </div>`;
+            carritoTemporal.appendChild(nuevoElementoCarrito);
+            const data=(`borrar-${carrito[i].id}`);
+            document.querySelector(`[data-id=${data}]`).addEventListener("click", function () {
+
+            preguntarSiEliminar(carrito[i].nombre,carrito,carrito[i].id)
+              
+            })
+
+            const dataCantidadMenos=(`menosCant-${carrito[i].id}`);
+            document.querySelector(`[data-id=${dataCantidadMenos}]`).addEventListener("click", function () {
+            
+              if (carrito[i].cantidad==1) {
+
+                preguntarSiEliminar(carrito[i].nombre,carrito,carrito[i].id)
+
+              } else {
+                reducirCantidad(carrito[i]);
+                carritoPago(carrito);
+              }
+
+            })
+
+            const dataCantidadMas=(`masCant-${carrito[i].id}`);
+            document.querySelector(`[data-id=${dataCantidadMas}]`).addEventListener("click", function () {
+             
+              aumentarCantidad(carrito[i]);
+              carritoPago(carrito);
+            
+            })
+
+            total=totalPrecioCarrito(carrito);
+
+        }
+
+        const totalArticulosCarrito=document.getElementById("TotalArticulosCarrito");
+        const sumaCarrito=document.getElementById("sumaCarrito");
+        let cantCarritoUnidades=0;
+
+        if (carrito.length==0) {
+          
+          totalArticulosCarrito.style.display="none";
+          carritoTemporal.innerHTML="<h2 class=vacio>El carrito está vacío</h2>";
+        } else {
+          totalArticulosCarrito.style.display="flex";
+          carrito.forEach(element => {
+            cantCarritoUnidades=cantCarritoUnidades+element.cantidad;
+          });
+          sumaCarrito.innerHTML=cantCarritoUnidades;
+        }
+
+        guardarCarritoLS(carrito);
+        document.getElementById("Total").innerText="€"+total.toFixed(2);
+
+}
+
+//=====================Pregunta si quiere eliminar del carrito======================
+function preguntarSiEliminar(nombreDisco,carrito,carritoId) {
+
+  if (confirm(`Deseas eliminar del carrito el disco: ${nombreDisco}?`)) {
+    let carritoDespuesBorrar = eliminarDiscoCarrito(carrito,carritoId);
+    carritoPago(carritoDespuesBorrar);
+  }
+
+}
+
+
+//==============================Total precio carrito============================
+function totalPrecioCarrito(carrito) {
+  let valorTotal=0;
+  console.log(carrito);
+  for (let i = 0; i < carrito.length; i++) {
+    valorTotal = valorTotal + carrito[i].cantidad * carrito[i].precio;
+  }
+  return valorTotal;
+}
+
+
+
+//=============================GUARDAR Y RECUPERAR CARRITO DEL LOCAL STORAGE========================
+
+function guardarCarritoLS(carrito) {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function recuperarCarritoLS() {
+  let carritoRecuperado=JSON.parse(localStorage.getItem("carrito"));
+  return carritoRecuperado;
+}
+
+function eliminarDiscoCarrito(carritoAntesBorrar,id) {
+  let nuevoCarrito=[];
+  for (let i = 0; i < carritoAntesBorrar.length; i++) {
+    if (carritoAntesBorrar[i].id != id) {
+      nuevoCarrito.push(carritoAntesBorrar[i]);
+    }
+  }
+  return nuevoCarrito;
+}
+
+
+//=====================FUNCIONES DE BOTONES DE REDUCIR Y AUMENTAR CANTIDAD EN CARRITO=======================
+
+function reducirCantidad(carrito) {
+  carrito.cantidad--;
+}
+
+function aumentarCantidad(carrito) {
+  carrito.cantidad++;
 }

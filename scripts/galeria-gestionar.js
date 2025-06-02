@@ -3,6 +3,12 @@ import { recuperarBbddLS, almacenarBbddLS } from "./galeria-discos.js";
 
 function crearGaleriaLista(listaDiscos) {
 
+  const el = document.querySelector("#Lista-Discos");
+    if (!el){
+      return;
+    } 
+    
+
   document.getElementById("Lista-Discos").innerHTML="";
 
     let galeria = document.getElementById("Lista-Discos");
@@ -39,6 +45,21 @@ function crearGaleriaLista(listaDiscos) {
             const imagenPrueba=document.getElementById("ImagenEditar").value;
             const precioPrueba=document.getElementById("PrecioEditar").value;
 
+            if (!nombrePrueba) {
+              alert("El nombre no puede estar vacío");
+              return;
+            }
+
+            if (anioPrueba<1900) {
+              alert("El año no puede estar antes del año 1900");
+              return;
+            }
+
+            if (precioPrueba<0 || precioPrueba>1000) {
+              alert("El precio no puede ser menor a 0€ ni mayor a 1.000€");
+              return;
+            }
+
             listaDiscos[i].nombre=nombrePrueba;
             listaDiscos[i].anio=anioPrueba;
             listaDiscos[i].imagen=imagenPrueba;
@@ -49,7 +70,7 @@ function crearGaleriaLista(listaDiscos) {
             crearGaleriaLista(listaDiscos);
             console.log("empieza el guardar galeria con Disco unico editado en LS")
             almacenarBbddLS("BBDD",listaDiscos);
-            
+            alert("Artículo editado correctamente");
           })
 
           
@@ -126,10 +147,17 @@ function ObtenerValoresNuevos() {
     console.log(precio);
 
     //=====================COMPROBAR QUE NO ESTÁ VACÍO EL NUEVO DISCO==========================
-    if (nombre==="" || anio==="" || imagen==="" || precio==="") {
-
-      alert("Debes ingresar todos los campos del nuevo disco")
-
+    if (!nombre) {
+      alert("El nombre no puede estar vacío");
+      return;
+    }
+    if (anio<1900) {
+      alert("El año no puede estar antes del año 1900");
+      return;
+    }
+    if (precio<0 || precio>1000) {
+      alert("El precio no puede ser menor a 0€ ni mayor a 1.000€");
+      return;
     } else {
 
       //=======================COMPARAR SI YA EXISTE EN LA BBDD=================================
@@ -151,6 +179,7 @@ function ObtenerValoresNuevos() {
         LocalStorage.push(nuevoDisco);
         almacenarBbddLS("BBDD",LocalStorage);
         crearGaleriaLista(LocalStorage);
+        alert("Artículo agregado correctamente")
       }
 
     }
@@ -160,7 +189,7 @@ function ObtenerValoresNuevos() {
 
 }
 
-function main() {
+export function mainGestionar() {
 
     let ListaDiscosRecuperada=recuperarBbddLS("BBDD")|| listaDiscos;
     crearGaleriaLista(ListaDiscosRecuperada);
@@ -168,4 +197,4 @@ function main() {
     ObtenerValoresNuevos();
 }
 
-document.addEventListener("DOMContentLoaded",main);
+document.addEventListener("DOMContentLoaded",mainGestionar);
